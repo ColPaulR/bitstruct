@@ -30,9 +30,12 @@ jobs:
 
       - name: Build wheel from setup.py
         run: python -m build --wheel
-
+      
+      - name: Extract repository name
+        run: echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
+      
       - name: Upload wheel artifact
         uses: actions/upload-artifact@v4
         with:
-          name: wheel-${{ matrix.os }}
+          name: ${{REPO_NAME}}-${{ $RUNNER_ARCH }}
           path: dist/*.whl
