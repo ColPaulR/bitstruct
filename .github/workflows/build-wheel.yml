@@ -34,7 +34,7 @@ jobs:
       - name: Get version
         id: get_version
         run: |
-          VERSION=$(python -c "exec(open('bitstruct/version.py').read()); print(__version__)")
+          VERSION=$(python -c "exec(open('${{ github.workspace }}/bitstruct/version.py').read()); print(__version__)")
           #VERSION=$(python3 -c "import sys; sys.path.append('path/to'); import version; print(version.__version__)")
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           
