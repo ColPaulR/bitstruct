@@ -31,11 +31,14 @@ jobs:
       - name: Build wheel from setup.py
         run: python -m build --wheel
       
-      - name: Extract repository name
-        run: echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
-      
+      - name: Get version
+        id: get_version
+        run: |
+          VERSION=$(python3 -c "import sys; sys.path.append('path/to'); import version; print(version.__version__)")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          
       - name: Upload wheel artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{github.event.repository.name}}-${{runner.arch}}
+          name: ${{github.event.repository.name}}-${{ steps.get_version.outputs.version }}-${{runner.arch}}
           path: dist/*.whl
