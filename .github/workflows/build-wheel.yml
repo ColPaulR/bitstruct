@@ -34,7 +34,8 @@ jobs:
       - name: Get version
         id: get_version
         run: |
-          VERSION=$(python3 -c "import sys; sys.path.append('path/to'); import version; print(version.__version__)")
+          VERSION=$(python setup.py --version)
+          #VERSION=$(python3 -c "import sys; sys.path.append('path/to'); import version; print(version.__version__)")
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           
       - name: Upload wheel artifact
